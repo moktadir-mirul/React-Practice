@@ -3,7 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
-function App() {
+function App(props) {
   const [count, setCount] = useState(0)
   const langName = ['C++', 'PHP', 'Java', 'JavaScript', 'Python'];
 
@@ -32,10 +32,15 @@ function App() {
       <div>
         <h2>The name of the languages are-</h2>
         <ul>
-          {langName.map((lang) => 
-          <li key={lang}>{lang}</li>
+          {langName.map((langs) => 
+          <li key={langs}>{langs}</li>
           )}
         </ul>
+        <h1 style={{color: 'violet'}}>Person Details</h1>
+        <h3 style={{color: 'brown'}}>Name: {props.name}</h3>
+        <h3 style={{color: 'brown'}}>Age: {props.age}</h3>
+        <p><strong>Language Skills:</strong>{props.languages.map((langu) => <li key={langu}>{langu}</li>)}</p>
+        <p><strong>Media Name:</strong>{props.links.map((media) => <li key={media}>{media.mediaName}</li>)}, <strong>Address:</strong>{props.links.map((link) => <li key={link}>{link.mediaLink}</li>)}</p>
       </div>
     </>
   )
