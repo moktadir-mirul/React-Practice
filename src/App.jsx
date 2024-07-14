@@ -1,12 +1,11 @@
-import { useState } from 'react'
+import { useState } from 'react';   
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
 function App(props) {
-  const [count, setCount] = useState(0)
+  const [counter, setCounter] = useState(100);
   const langName = ['C++', 'PHP', 'Java', 'JavaScript', 'Python'];
-
   return (
     <>
       <div>
@@ -18,17 +17,6 @@ function App(props) {
         </a>
       </div>
       <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          The Count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
       <div>
         <h2>The name of the languages are-</h2>
         <ul>
@@ -42,6 +30,9 @@ function App(props) {
         <p><strong>Language Skills:</strong>{props.languages.map((langu) => <li key={langu}>{langu}</li>)}</p>
         <p><strong>Media Name:</strong>{props.links.map((media) => <li key={media}>{media.mediaName}</li>)}, <strong>Address:</strong>{props.links.map((link) => <li key={link}>{link.mediaLink}</li>)}</p>
       </div>
+      <h1>The value of the count is {counter}</h1>
+      <button onClick={() => setCounter(counter +1)}>Increase By 1</button>
+      <button onClick={() => setCounter(counter-1)}>Decrease By 1</button>
     </>
   )
 }
