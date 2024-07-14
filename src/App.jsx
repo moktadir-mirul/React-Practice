@@ -3,37 +3,71 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
-function App(props) {
-  const [counter, setCounter] = useState(100);
-  const langName = ['C++', 'PHP', 'Java', 'JavaScript', 'Python'];
+function App() {
+
+  const [noteTitle, setNoteTitle] = useState('');
+  const [notes, setNotes] = useState([]);
+  const [editMode, setEditMode] = useState(false);
+  const [editableNote, setEditableNote] = useState(null);
+
+  const changeTitleHandler = (event) => {
+    setNoteTitle(event.target.value);
+  }
+
+  const submitHandler = (data) => {
+    data.preventDefault();
+    if(noteTitle.trim() === '') return alert('Please enter a valid note')
+      editMode===true ? updateHandler():createHandler();
+  }
+
+  const updateHandler = () => {
+    const updatedNote = notes.map((note) => {
+      if(note.id ===editableNote.id) {
+        return {...note, title: noteTitle};
+      }
+      return note;
+    })
+    setNotes(updatedNote);
+    setEditMode(false);
+    setEditableNote(null);
+    setNoteTitle('');
+  }
+
+  const createHandler = () => {
+    const newNote = {
+      id: Date.now() + '',
+      title: noteTitle,
+    }
+    setNotes([newNote, ...notes]);
+    setNoteTitle('');
+  }
+
+  const editHandler = (note) => {
+    setEditMode(true);
+    setNoteTitle(note.title);
+    setEditableNote(note);
+  }
+
+  const removeHandler = (noteId) => {
+    const updatedArr = notes.filter((note) => note.id !== noteId);
+    setNotes(updatedArr);
+  }
+
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div>
-        <h2>The name of the languages are-</h2>
-        <ul>
-          {langName.map((langs) => 
-          <li key={langs}>{langs}</li>
-          )}
-        </ul>
-        <h1 style={{color: 'violet'}}>Person Details</h1>
-        <h3 style={{color: 'brown'}}>Name: {props.name}</h3>
-        <h3 style={{color: 'brown'}}>Age: {props.age}</h3>
-        <p><strong>Language Skills:</strong>{props.languages.map((langu) => <li key={langu}>{langu}</li>)}</p>
-        <p><strong>Media Name:</strong>{props.links.map((media) => <li key={media}>{media.mediaName}</li>)}, <strong>Address:</strong>{props.links.map((link) => <li key={link}>{link.mediaLink}</li>)}</p>
-      </div>
-      <h1>The value of the count is {counter}</h1>
-      <button onClick={() => setCounter(counter +1)}>Increase By 1</button>
-      <button onClick={() => setCounter(counter-1)}>Decrease By 1</button>
-    </>
+    <div>
+      <form onSubmit={submitHandler} style={{border: editMode ? '1px solid red':''}}>
+        <input placeholder='Enter Note Name' className='inputField' type="text" value={noteTitle} onChange={changeTitleHandler}/>
+        <button>{editMode===true ? 'Update Note': 'Add Note'}</button>
+      </form>
+        {notes.map((note) => (
+          <li id='point'>
+            <span>{note.title}</span>
+            <button onClick={() => editHandler(note)}>Edit</button>
+            <button onClick={() => removeHandler(note.id)}>Delete</button>
+          </li>
+        ))}
+      
+    </div>
   )
 }
 

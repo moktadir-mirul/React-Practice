@@ -40,3 +40,23 @@
 .read-the-docs {
   color: #888;
 }
+.inputField {
+  height: 35px;
+  width: 300px;
+  border: 1px solid brown;
+  border-radius: 5px;
+  font-size: 1.4em;
+  text-indent: 8px;
+}
+.inputField::placeholder {
+  font-family: monospace;
+  font-size: 1.3em;
+  text-indent: 8px;
+}
+#point {
+  margin-top: 15px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+span {
+  font-size: 2em;
+}
