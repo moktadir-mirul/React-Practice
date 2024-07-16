@@ -1,8 +1,9 @@
+import { useContext } from "react";
+import { StudentContext } from "../Context/Student";
 
+function PresentList() {
 
-function PresentList(props) {
-
-    const {students, toggleList} = props;
+    const {students, toggleList} = useContext(StudentContext);
 
     return (
         <div>

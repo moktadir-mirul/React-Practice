@@ -1,9 +1,9 @@
+import { useContext } from "react";
+import { StudentContext } from "../Context/Student";
 
+function AbsentList() {
 
-function AbsentList(props) {
-
-    const {students, toggleList} = props;
-
+    const {students, toggleList} = useContext(StudentContext);
 
     return(
         <div>

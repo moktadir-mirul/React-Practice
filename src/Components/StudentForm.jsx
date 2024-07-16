@@ -1,41 +1,11 @@
+import { useContext } from "react";
+import { StudentContext } from "../Context/Student";    
 
+function StudentForm() {
 
-function StudentForm(props) {
+const {submitHandler,studentName, editMode, changeHandler} = useContext(StudentContext)
 
-const {studentName, setStudentName, students, setStudents, editMode, setEditMode, editableStudent, setEditableStudent} = props;
-
-    const changeHandler =(event) => {
-        setStudentName(event.target.value)
-    };
-
-    const submitHandler = (data) => {
-        data.preventDefault();
-        if(studentName.trim() === '') return alert('Please enter a valid name');
-        editMode ? updateHandler():createHandler();
-    }
-
-    const createHandler = () => {
-        const newStudent = {
-            id: Date.now() + '',
-            title: studentName,
-            isPresent: undefined,
-        }
-        setStudents([...students, newStudent]);
-        setStudentName('');
-    }
-
-    const updateHandler =() => {
-        const updatedStudent= students.map((student) => {
-            if(student.id === editableStudent.id) {
-                return {...student, title: studentName}
-            }
-            return student;
-        })
-        setStudents(updatedStudent);
-        setEditMode(false);
-        setStudentName('');
-        setEditableStudent(null);
-    }   
+   
 
     return(
         <div>
