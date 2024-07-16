@@ -51,6 +51,38 @@ function App2() {
         setStudents(updatedList)
     }
 
+    const sentToPresentList = (student) => {
+        if(student.isPresent === true || student.isPresent === false) return alert(`The student is already in ${student.isPresent ? 'Present List':'Absent List'}`)
+        const presentList = students.map((item) => {
+            if(student.id === item.id) {
+                return {...item, isPresent: true}
+            }
+            return item
+        });
+        setStudents(presentList);
+    }
+
+    const sentToAbsentList = (student) => {
+        if(student.isPresent === true || student.isPresent === false) return alert(`The student is already in ${student.isPresent ? 'Present List':'Absent List'}`)
+        const absentList= students.map((item) => {
+            if(student.id === item.id) {
+                return{...item, isPresent: false}
+            }
+            return item;
+        })
+        setStudents(absentList);
+    }
+
+    const toggleList = (student) => {
+        const updatedList = students.map((item) => {
+            if (item.id === student.id) {
+                return{...item, isPresent:!item.isPresent}
+            }
+            return item;
+        })
+        setStudents(updatedList);
+    }
+
     return (
         <div>
             <form onSubmit={submitHandler}>
@@ -75,7 +107,7 @@ function App2() {
                     {students.filter((student) => student.isPresent === true).map((student) => (
                         <li key={student.id}>
                             <span>{student.title}</span>
-                            <button>Accidentally Added</button>
+                            <button onClick={() => toggleList(student)}>Accidentally Added</button>
                         </li>
                     ))}
                 </div>
