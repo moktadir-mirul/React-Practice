@@ -11,7 +11,6 @@ function App2() {
             <StudentForm />
             <StudentSection />
             <ReducerExample />
-            
         </div>
     )
 }

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { useEffect } from 'react';
 
 function App() {
 
@@ -20,14 +21,26 @@ function App() {
       editMode===true ? updateHandler():createHandler();
   }
 
+  const AllNotes = () => {
+    fetch('http://localhost:3000/notes')
+    .then((res) => res.json())
+    .then((data) => setNotes(data))
+  }
+
+  useEffect(() => {
+    AllNotes()
+  }, [])
+
   const updateHandler = () => {
-    const updatedNote = notes.map((note) => {
-      if(note.id ===editableNote.id) {
-        return {...note, title: noteTitle};
-      }
-      return note;
+    fetch(`http://localhost:3000/notes/${editableNote.id}`, {
+      method: "PATCH",
+      body: JSON.stringify({title: noteTitle}),
+      headers: {'content-type': 'application/json'}
+    }) 
+    .then((res) => res.json())
+    .then(() => {
+      AllNotes()
     })
-    setNotes(updatedNote);
     setEditMode(false);
     setEditableNote(null);
     setNoteTitle('');
@@ -38,7 +51,13 @@ function App() {
       id: Date.now() + '',
       title: noteTitle,
     }
-    setNotes([newNote, ...notes]);
+    fetch('http://localhost:3000/notes', {
+      method: "POST",
+      body: JSON.stringify(newNote),
+      headers:{'content-type':'application/json'}
+    })
+    .then((res) => res.json())
+    .then(() => {AllNotes()})
     setNoteTitle('');
   }
 
@@ -49,8 +68,11 @@ function App() {
   }
 
   const removeHandler = (noteId) => {
-    const updatedArr = notes.filter((note) => note.id !== noteId);
-    setNotes(updatedArr);
+    fetch(`http://localhost:3000/notes/${noteId}`, {
+      method: "DELETE"
+    })
+    .then((res) => res.json())
+    .then(() => {AllNotes()})
   }
 
   return (

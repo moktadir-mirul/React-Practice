@@ -7,6 +7,6 @@ import StudentProvider from './Context/Student.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <StudentProvider>
-   <App2 /> 
+   <App /> 
   </StudentProvider>,
 )
