@@ -3,15 +3,15 @@ import { StudentContext } from "../Context/Student";
 
 function StudentForm() {
 
-const {submitHandler,studentName, editMode, changeHandler} = useContext(StudentContext)
+const {submitHandler,StudentStates, dispatchS} = useContext(StudentContext);
 
    
 
     return(
         <div>
             <form onSubmit={submitHandler}>
-            <input type="text" placeholder='Enter Student Name' className='inputField' value={studentName} onChange={changeHandler} />
-            <button>{editMode ? 'Update Student Name': 'Create Student'}</button>
+            <input type="text" placeholder='Enter Student Name' className='inputField' value={StudentStates.studentName} onChange={(event) => dispatchS({type: 'CHANGE-HANDLER', payload: event.target.value})} />
+            <button>{StudentStates.editMode ? 'Update Student Name': 'Create Student'}</button>
             </form>
         </div>
     )
