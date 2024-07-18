@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { useEffect } from 'react';
+import { Nav } from './Components/Nav';
 
 function App() {
 
@@ -82,13 +83,12 @@ function App() {
         <button>{editMode===true ? 'Update Note': 'Add Note'}</button>
       </form>
         {notes.map((note) => (
-          <li id='point'>
+          <li id='point' key={note.id}>
             <span>{note.title}</span>
             <button onClick={() => editHandler(note)}>Edit</button>
             <button onClick={() => removeHandler(note.id)}>Delete</button>
           </li>
         ))}
-      
     </div>
   )
 }
