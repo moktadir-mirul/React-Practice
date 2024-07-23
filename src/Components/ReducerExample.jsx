@@ -44,6 +44,7 @@ function ReducerExample() {
             <div className="counter">
                 <h1>The value of count is {counter}</h1>
                 <button onClick={() => dispatch({type: 'ADD', value: 5})}>Add 5</button>
+                <button onClick={() => dispatch({type: 'ADD', value: 1})}>Add 1</button>
                 <button onClick={() => dispatch({type: 'ADD', value: 10})}>Add 10</button>
                 <button onClick={() => dispatch({type: 'MINUS', value: 5})}>Deduct 5</button>
                 <button onClick={() => dispatch({type: 'MINUS', value: 10})}>Deduct 10</button>
@@ -67,7 +68,7 @@ function ReducerExample() {
                 <button onClick={() => dispatchA({type: 'COLOR', payload: 'chocolate'})}>CLR Bisque</button>
                 <button onClick={() => dispatchA({type: 'COLOR', payload: 'yellow'})}>CLR Yellow</button>
                 <button onClick={() => dispatchA({type: 'COLOR', payload: 'brown'})}>CLR Brown</button>
-                <button onClick={() => dispatchA({type: 'COLOR', payload: 'cadetblue'})}>CLR Beige</button>
+                <button onClick={() => dispatchA({type: 'COLOR', payload: 'cadetblue'})} >CLR Beige</button>
             </div>
         </div>
     )

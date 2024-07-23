@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function PostDetails() {
     const {postID} = useParams();
@@ -19,6 +20,9 @@ function PostDetails() {
                     <span>{post?.details}</span>
                     <p><li>{post?.body}</li></p>
                 </li>
+                <h3>
+                    <Link to={"/"}>Go Back</Link>
+                </h3>
              </ul>
         </div>
     )
