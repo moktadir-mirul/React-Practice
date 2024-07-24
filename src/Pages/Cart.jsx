@@ -6,6 +6,9 @@ export const Cart = () => {
 
 	const {cart, dispatch} = useContext(ShopContext);
 
+	let totalPrice = 0;
+	cart.forEach((item) => (totalPrice += item.quantity * item.price));
+
     return (
         <div>
 			<div className="account-setting__content">
@@ -32,12 +35,13 @@ export const Cart = () => {
 					</table>
 				</div>
 				<h2 className="total-price">
-					You Total Price Will be 
+					You Total Price Will be <strong style={{fontWeight: 'bold', fontSize: '20px'}}>${totalPrice} </strong>
 				</h2>
 				<div className="mt-50">
 					<button
 						type="button"
 						className="btn-big"
+						onClick={() => dispatch({type:'CLEAR-CART'})}
 					>
 						Clear Cart
 					</button>

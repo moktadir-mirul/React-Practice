@@ -3,6 +3,10 @@ import { ShopContext } from "../Context/ShopContext";
 
 export const ProductCard = ({product}) => {
 	const {dispatch} = useContext(ShopContext);
+	const AddHandler = () => {
+		dispatch({type:'ADD-ITEM', payload: product})
+		// alert(`${product.title} has been added to cart successfully`)
+	}
     return (
 		<div className="ingredient">
 			<div className="ingredient__image">
@@ -24,7 +28,7 @@ export const ProductCard = ({product}) => {
 			<div className="ingredient__btn">
 				<button
 					className="btn-white"
-					onClick={() => dispatch({type:'ADD-ITEM', payload: product})}
+					onClick={AddHandler}
 					>
                         Add to Cart
 				</button>

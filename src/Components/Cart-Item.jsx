@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { ShopContext } from "../Context/ShopContext";
 
 export const CartItem = ({item}) => {
 
+	const {dispatch} = useContext(ShopContext)
+
     const [itemQuantity, setItemQuantity] = useState(item.quantity)
+
 	return (
 		<tr>
 			<td>
@@ -24,7 +28,14 @@ export const CartItem = ({item}) => {
 						className="qty-count qty-count--minus"
 						data-action="minus"
 						type="button"
-						
+						onClick={() => {
+							if (itemQuantity > 1) {
+								dispatch({type:'MODIFY-ITEM', payload:{id: item.id, quantity: itemQuantity-1}})
+								setItemQuantity(itemQuantity-1);
+							} else {
+								alert('Item quantity cannot be zero')
+							}
+						}}						
 					>
 						<figure>
 							-
@@ -34,15 +45,23 @@ export const CartItem = ({item}) => {
 						className="product-qty"
 						type="number"
 						name="product-qty"
-						value={itemQuantity}
-						
+						value={itemQuantity}						
 						min="1"
+						onChange={(event) => {
+							
+								dispatch({type: 'MODIFY-ITEM', payload:{id: item.id, quantity:Number(event.target.value)}})
+								setItemQuantity(Number(event.target.value))
+							
+						}}
 					/>
 					<button
 						className="qty-count qty-count--add"
 						data-action="add"
 						type="button"
-						
+						onClick={() => {
+								dispatch({type:'MODIFY-ITEM', payload:{id:item.id, quantity: itemQuantity+1}})
+								setItemQuantity(itemQuantity+1)
+						}}
 					>
 						<figure>
 							+
@@ -52,7 +71,7 @@ export const CartItem = ({item}) => {
 			</td>
 			<td>${item.price * item.quantity}</td>
 			<td>
-				X
+				<button onClick={() => dispatch({type: 'REMOVE-ITEM', payload: item.id})}>Remove</button>
 			</td>
 		</tr>
 	);
